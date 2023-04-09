@@ -2,6 +2,7 @@ import { component$ } from "@builder.io/qwik";
 import { routeAction$, routeLoader$ } from "@builder.io/qwik-city";
 import { prisma } from "~/lib/prisma";
 import { DeleteContact } from "./delete-contact";
+import { Favorite } from "./favorite";
 
 export const useGetContact = routeLoader$(async ({ params, error }) => {
   const contact = await prisma.contact.findUnique({
@@ -44,11 +45,23 @@ export const useFavoriteContact = routeAction$(
       where: {
         id: params.contactId,
       },
+      select: {
+        favorite: true,
+      },
     });
 
     if (!contact) {
       throw error(404, "Contact not found");
     }
+
+    await prisma.contact.update({
+      where: {
+        id: params.contactId,
+      },
+      data: {
+        favorite: !contact.favorite,
+      },
+    });
 
     throw redirect(303, `/contacts/${params.contactId}`);
   }
@@ -76,7 +89,7 @@ export default component$(() => {
             <h1 class="text-2xl font-bold">
               {contact.value?.firstName} {contact.value?.lastName}
             </h1>
-            <Favourite favorite={contact.value.favorite} />
+            <Favorite favorite={contact.value.favorite} />
           </div>
           {contact.value.twitter && (
             <a

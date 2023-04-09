@@ -1,6 +1,7 @@
-import { Signal, component$ } from "@builder.io/qwik";
+import { type Signal, component$ } from "@builder.io/qwik";
 import { Link, useLocation } from "@builder.io/qwik-city";
 import { ChevronLeftIcon } from "~/icons/chevron-left";
+import { Search } from "./search";
 
 export const Sidebar = component$(
   ({ drawer, contacts }: { drawer: Signal<boolean>; contacts: any[] }) => {

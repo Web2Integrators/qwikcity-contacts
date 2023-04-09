@@ -1,5 +1,6 @@
 import { component$, Slot, useSignal } from "@builder.io/qwik";
 import { routeLoader$ } from "@builder.io/qwik-city";
+import { Sidebar } from "~/components/sidebar";
 import { MenuIcon } from "~/icons/menu";
 import { prisma } from "~/lib/prisma";
 
@@ -30,7 +31,7 @@ export const useContacts = routeLoader$(async ({ url }) => {
   });
   return {
     contacts,
-  };
+  } as { contacts: any[] };
 });
 export default component$(() => {
   const contactsSignal = useContacts();
@@ -38,7 +39,7 @@ export default component$(() => {
   const drawer = useSignal(false);
   return (
     <div class="flex">
-      <Sidebar />
+      <Sidebar contacts={contactsSignal.value.contacts} drawer={drawer} />
       <div class="block md:hidden absolute top-4 left-4">
         <button onClick$={() => (drawer.value = true)}>
           <MenuIcon />

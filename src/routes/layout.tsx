@@ -35,7 +35,6 @@ export const useContacts = routeLoader$(async ({ url }) => {
 });
 export default component$(() => {
   const contactsSignal = useContacts();
-
   const drawer = useSignal(false);
   return (
     <div class="flex">

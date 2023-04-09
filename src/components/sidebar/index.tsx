@@ -5,7 +5,8 @@ import { Search } from "./search";
 
 export const Sidebar = component$(
   ({ drawer, contacts }: { drawer: Signal<boolean>; contacts: any[] }) => {
-    const { url } = useLocation();
+    const loc = useLocation();
+
     return (
       <aside
         class={`${
@@ -30,7 +31,7 @@ export const Sidebar = component$(
                   <Link
                     href={`/contacts/${contact.id}`}
                     class={`py-2 block rounded-md px-2  ${
-                      url.pathname === `/contacts/${contact.id}`
+                      loc.url.pathname === `/contacts/${contact.id}/`
                         ? "bg-blue-500 text-white "
                         : "hover:bg-gray-200"
                     }`}

@@ -4,11 +4,11 @@ import { prisma } from "~/lib/prisma";
 
 export const useAddContact = routeAction$(
   async (formData, { redirect }) => {
-    await prisma.contact.create({
+    const contact = await prisma.contact.create({
       data: formData,
     });
 
-    throw redirect(303, `/`);
+    throw redirect(303, `/contacts/${contact.id}`);
   },
   zod$({
     firstName: z.string().min(1, "First name is required"),

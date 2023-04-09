@@ -1,11 +1,12 @@
 import { component$, Slot, useSignal } from "@builder.io/qwik";
-import { routeLoader$ } from "@builder.io/qwik-city";
+import { routeAction$, routeLoader$, z, zod$ } from "@builder.io/qwik-city";
 import { Sidebar } from "~/components/sidebar";
 import { MenuIcon } from "~/icons/menu";
 import { prisma } from "~/lib/prisma";
 
 export const useContacts = routeLoader$(async ({ url }) => {
   const search = url.searchParams.get("search");
+  console.log(search);
   const contacts = await prisma.contact.findMany({
     where: search?.trim().length
       ? {
@@ -29,16 +30,24 @@ export const useContacts = routeLoader$(async ({ url }) => {
       lastName: true,
     },
   });
-  return {
-    contacts,
-  } as { contacts: any[] };
+
+  return contacts;
 });
+
+export const useSearch = routeAction$(
+  (formData, { redirect }) => {
+    throw redirect(303, `/?search=${formData.search}`);
+  },
+  zod$({
+    search: z.string().min(1),
+  })
+);
 export default component$(() => {
   const contactsSignal = useContacts();
   const drawer = useSignal(false);
   return (
     <div class="flex">
-      <Sidebar contacts={contactsSignal.value.contacts} drawer={drawer} />
+      <Sidebar contacts={contactsSignal.value} drawer={drawer} />
       <div class="block md:hidden absolute top-4 left-4">
         <button onClick$={() => (drawer.value = true)}>
           <MenuIcon />

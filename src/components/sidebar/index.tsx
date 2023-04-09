@@ -4,7 +4,13 @@ import { ChevronLeftIcon } from "~/icons/chevron-left";
 import { Search } from "./search";
 
 export const Sidebar = component$(
-  ({ drawer, contacts }: { drawer: Signal<boolean>; contacts: any[] }) => {
+  ({
+    drawer,
+    contacts,
+  }: {
+    drawer: Signal<boolean>;
+    contacts: { id: string; firstName: string; lastName: string | null }[];
+  }) => {
     const loc = useLocation();
 
     return (

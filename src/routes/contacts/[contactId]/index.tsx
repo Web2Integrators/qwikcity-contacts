@@ -38,6 +38,22 @@ export const useDeleteContact = routeAction$(
   }
 );
 
+export const useFavoriteContact = routeAction$(
+  async (_, { redirect, error, params }) => {
+    const contact = await prisma.contact.findUnique({
+      where: {
+        id: params.contactId,
+      },
+    });
+
+    if (!contact) {
+      throw error(404, "Contact not found");
+    }
+
+    throw redirect(303, `/contacts/${params.contactId}`);
+  }
+);
+
 export default component$(() => {
   const contact = useGetContact();
 
@@ -60,7 +76,7 @@ export default component$(() => {
             <h1 class="text-2xl font-bold">
               {contact.value?.firstName} {contact.value?.lastName}
             </h1>
-            {/* <Favourite favorite={contact.value.favorite} /> */}
+            <Favourite favorite={contact.value.favorite} />
           </div>
           {contact.value.twitter && (
             <a

@@ -1,8 +1,15 @@
 import { component$ } from "@builder.io/qwik";
 import { routeAction$, zod$, z, Form, Link } from "@builder.io/qwik-city";
+import { prisma } from "~/lib/prisma";
 
 export const useAddContact = routeAction$(
-  (formData) => {},
+  async (formData, { redirect }) => {
+    await prisma.contact.create({
+      data: formData,
+    });
+
+    throw redirect(303, `/`);
+  },
   zod$({
     firstName: z.string().min(1, "First name is required"),
     lastName: z.string(),

@@ -42,8 +42,7 @@ export const Sidebar = component$(
                         : "hover:bg-gray-200"
                     }`}
                   >
-                    {contact.firstName}
-                    {contact.lastName}
+                    {contact.firstName} {contact.lastName}
                   </Link>
                 </li>
               ))}

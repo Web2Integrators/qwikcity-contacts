@@ -6,7 +6,7 @@ import { prisma } from "~/lib/prisma";
 
 export const useContacts = routeLoader$(async ({ url }) => {
   const search = url.searchParams.get("search");
-  console.log(search);
+
   const contacts = await prisma.contact.findMany({
     where: search?.trim().length
       ? {

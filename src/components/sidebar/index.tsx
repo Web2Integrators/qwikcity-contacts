@@ -49,12 +49,12 @@ export const Sidebar = component$(
         <footer class="py-4 flex space-x-2 items-center px-2 md:px-6">
           <a class="flex space-x-2 items-center flex-1" href="/">
             <img
-              src="https://kit.svelte.dev/favicon.png"
+              src="https://qwik.builder.io/logos/qwik-logo.svg"
               class="w-6 h-6 flex-none"
               loading="lazy"
               alt=""
             />
-            <span class="font-medium text-sm">Sveltekit Contacts</span>
+            <span class="font-medium text-sm">Qwikcity Contacts</span>
           </a>
           <button
             class="block md:hidden"

@@ -10,7 +10,7 @@ export const Favorite = component$(({ favorite }: { favorite: boolean }) => {
     <Form action={action}>
       <button
         disabled={action.isRunning}
-        class="disabled:cursor-wait"
+        class="disabled:cursor-wait disabled:text-gray-500"
         name="favorite"
         aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
       >

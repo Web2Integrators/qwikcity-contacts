@@ -47,7 +47,7 @@ export const Sidebar = component$(
         </section>
 
         <footer class="py-4 flex space-x-2 items-center px-2 md:px-6">
-          <a class="flex space-x-2 items-center flex-1" href="/">
+          <Link class="flex space-x-2 items-center flex-1" href="/">
             <img
               src="https://qwik.builder.io/logos/qwik-logo.svg"
               class="w-6 h-6 flex-none"
@@ -55,7 +55,7 @@ export const Sidebar = component$(
               alt=""
             />
             <span class="font-medium text-sm">Qwikcity Contacts</span>
-          </a>
+          </Link>
           <button
             class="block md:hidden"
             onClick$={() => (drawer.value = false)}

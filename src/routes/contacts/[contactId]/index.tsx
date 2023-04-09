@@ -1,6 +1,7 @@
 import { component$ } from "@builder.io/qwik";
-import { routeLoader$ } from "@builder.io/qwik-city";
+import { routeAction$, routeLoader$ } from "@builder.io/qwik-city";
 import { prisma } from "~/lib/prisma";
+import { DeleteContact } from "./delete-contact";
 
 export const useGetContact = routeLoader$(async ({ params, error }) => {
   const contact = await prisma.contact.findUnique({
@@ -14,6 +15,28 @@ export const useGetContact = routeLoader$(async ({ params, error }) => {
   }
   return contact;
 });
+
+export const useDeleteContact = routeAction$(
+  async (_, { redirect, params, error }) => {
+    const contact = await prisma.contact.findUnique({
+      where: {
+        id: params.contactId,
+      },
+    });
+
+    if (!contact) {
+      throw error(404, "Contact not found");
+    }
+
+    await prisma.contact.delete({
+      where: {
+        id: params.contactId,
+      },
+    });
+
+    throw redirect(303, "/");
+  }
+);
 
 export default component$(() => {
   const contact = useGetContact();
@@ -59,7 +82,7 @@ export default component$(() => {
               Edit
             </a>
 
-            {/* <DeleteContact /> */}
+            <DeleteContact />
           </div>
         </div>
       </div>

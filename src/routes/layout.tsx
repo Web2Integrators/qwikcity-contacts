@@ -5,6 +5,7 @@ import { MenuIcon } from "~/icons/menu";
 import { prisma } from "~/lib/prisma";
 
 export const useContacts = routeLoader$(async ({ url }) => {
+  console.log('server')
   const search = url.searchParams.get("search");
 
   const contacts = await prisma.contact.findMany({
@@ -45,6 +46,7 @@ export const useSearch = routeAction$(
 export default component$(() => {
   const contactsSignal = useContacts();
   const drawer = useSignal(false);
+  //
   return (
     <div class="flex">
       <Sidebar contacts={contactsSignal.value} drawer={drawer} />

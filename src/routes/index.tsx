@@ -1,7 +1,13 @@
 import { component$ } from "@builder.io/qwik";
 import { type DocumentHead } from "@builder.io/qwik-city";
+//import { useContacts } from "./layout";
+
+
 
 export default component$(() => {
+
+  //const contactsSignal = useContacts();
+
   return (
     <section class="min-h-screen grid place-items-center">
       <div class="max-w-md w-full mx-auto text-center flex flex-col space-y-4">
